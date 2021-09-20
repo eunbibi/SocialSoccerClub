@@ -1,0 +1,53 @@
+﻿@using Anna_E_Seo_301098222.Models.ViewModels
+
+@model PlayerClubViewModel
+
+@{
+    ViewData["Title"] = "Club Detail";
+}
+
+<div class="container m-2 mx-auto">
+    <h2 class="text-center text-uppercase border-bottom p-3">Club Information</h2>
+
+    <div class="d-md-flex justify-content-between pt-5">
+        <div id="club-info" class="pr-md-5 border-right w-100">
+            @foreach (var c in Model.club)
+            {
+                <div>
+                    <i class="fas fa-sticky-note fa-1x"></i>
+                    <h3>Club Name: <span class="text-muted">@c.clubName</span></h3>
+
+                    @{
+                        ViewData["Club"] = "Club Detail";
+                    }
+
+                    <p>Description: @c.description</p>
+                </div>
+
+                <div>
+                    <i class="fas fa-info-circle fa-1x"></i>
+                    <h3>Club Information:</h3>
+                    <p>Location: @c.nation</p>
+                    <p>Total Wins: @c.nWins</p>
+                    <p>Total Draws: @c.nDraws</p>
+                    <p>Total Points: @c.totalPoints</p>
+                    <p>Sponsor: @c.sponsor</p>
+                    <br />
+                    <div class="d-flex justify-content-around">
+                        <form asp-controller="Crud" asp-route-clubname="@c.clubName" asp-action="EditClubForm" method="post">
+                            <input type="submit" value="Update Club" class="mx-2 btn btn-warning" />
+                        </form>
+
+                        <form asp-controller="Crud" asp-route-clubname="@c.clubName" asp-action="DeleteClub" method="post">
+                            <input type="submit" value="Delete Club" class="mx-2 btn btn-danger" />
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @{
+            Html.RenderPartial("~/Views/Shared/playerDetails.cshtml");
+        }
+    </div>
+</div>
